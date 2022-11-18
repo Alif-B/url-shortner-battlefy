@@ -1,0 +1,4 @@
+boto3
+flask-lambda
+flask-lambda-python36
+werkzeug==2.0.3
