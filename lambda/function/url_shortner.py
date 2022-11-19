@@ -13,7 +13,7 @@ table = dynamodb.Table('battlefy-urls')
 
 
 
-# Checking if the randomly generated link is already assigned to another link
+# Checking if the randomly generated link is already assigned to another link.
 def check_generated_link(link):
     response = table.query(KeyConditionExpression=Key('shortened').eq(link))
 
