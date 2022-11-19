@@ -1,4 +1,4 @@
-from aws_cdk import Stack, aws_lambda, aws_iam
+from aws_cdk import Stack, CfnOutput, aws_lambda, aws_iam, aws_apigateway
 from constructs import Construct
 
 class UrlShortnerBattlefyStack(Stack):
@@ -20,16 +20,14 @@ class UrlShortnerBattlefyStack(Stack):
             self,
             id = "battlefy-url-shortner",
             code = aws_lambda.Code.from_asset("lambda/function"),
-            handler = "my_python_file.app",
+            handler = "url_shortner.app",
             runtime = aws_lambda.Runtime.PYTHON_3_9,
             role = my_role
         )
 
-        # function_url = url_shortner_function.add_function_url(
-        #     auth_type=aws_lambda.FunctionUrlAuthType.NONE
-        # )
-
-        # CfnOutput(self, "TheUrl", value=fn_url.url)
 
 
-
+        api = aws_apigateway.LambdaRestApi(self, "battlefy-url-shortner-apigw", handler=url_shortner_function, proxy=False)
+        path = api.root.add_resource("{proxy+}")
+        path.add_method("GET")
+        path.add_method("POST")
