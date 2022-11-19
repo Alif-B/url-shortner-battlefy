@@ -31,3 +31,5 @@ class UrlShortnerBattlefyStack(Stack):
         path = api.root.add_resource("{proxy+}")
         path.add_method("GET")
         path.add_method("POST")
+
+        CfnOutput(self, "API Endpoint", value=api.url)
