@@ -1,4 +1,42 @@
+# Deployed Application:
+LINK: <Link>
 
+# Application Purpose
+This is a URL shortening service that provides the ability to shorten web addresses to a 5-10 characters string. Once a link has been shortened you can call `GET: <API-URL>/<random-generated-string>` to be redirected to the full web address that the string belongs to.
+
+sequenceDiagram
+  User ->> Service: POST / {"url": "the external URL"}
+  Service ->> User: 200 OK {"shortlink": "/the-new-path"}
+
+sequenceDiagram
+  User ->> Service: GET /<some-short-link>
+  Service ->> User: 302 REDIRECT "the original URL"
+
+sequenceDiagram
+  User ->> Service: <ANY> /healthcheck
+  Service ->> User: 200 OK
+
+
+# Architecture
+I used serverless AWS infrastructure to ensure that service is higly scaleable and not charging me when it's not being used.
+
+For this stack, I have an AWS APIGateway that listens for requests and uses Lambda functions to process the request and stores necessary data in a AWS DynamoDB table. I have left the table outside of the CDK for data retention purposes. I don't want the data to be deleted if `cdk destroy` was run. Hence, the AWS DynamoDB is managed manually.
+
+We have also used a combination of GitHub Actions and python AWS CDK to automate the build and deploy process.
+
+The Lambda function is created with Python Boto3 library that helps are use python code to process request as well as post and retrieve data from the database. I have also use Flask framework to handle links entered by users and redirect them to the website that they are really looking for! I have also added a healthcheck path that helps you diagnose if the service is up or not.
+
+NOTE: The POST Method has been protected with IAM policy. You need to a part of the `urlshortneradmins` group if you want to make POST request to the API endpoint.
+
+# Process
+Upon changes pushed to the main branch (with the exception of the README.md file) a GitHub action will be triggered that builds the app and updates the AWS Lambda function with the updated code.
+
+
+
+
+<br/><br/><br/><br/><br/>
+
+# AWS CDK Documentation
 # Welcome to your CDK Python project!
 
 This is a blank project for CDK development with Python.

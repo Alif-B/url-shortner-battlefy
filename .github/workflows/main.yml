@@ -3,6 +3,8 @@ name: Deploy to AWS using Python CDK
 on:
   push:
     branches: ['main']
+    paths-ignore:
+      - 'README.md'
 
 jobs:
   aws_cdk:
