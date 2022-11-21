@@ -18,7 +18,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-  User ->> Service: <ANY> /healthcheck
+  User ->> Service: ANY /healthcheck
   Service ->> User: 200 OK
 ```
 
@@ -32,12 +32,11 @@ We have also used a combination of `GitHub Actions` and python `AWS CDK` to auto
 
 The Lambda function is created with `Python Boto3 library` that helps are use python code to process request as well as post and retrieve data from the database. I have also use Flask framework to handle links entered by users and redirect them to the website that they are really looking for! I have also added a healthcheck path that helps you diagnose if the service is up or not.
 
-NOTE: The POST Method has been protected with IAM policy. You need to a part of the `urlshortneradmins` group if you want to make POST request to the API endpoint.
 
 # Process
 Upon pushing changes to the main branch (with the exception of the `README.md` file) a GitHub action will be triggered that builds the app and updates the AWS Lambda function with the updated code.
 
-
+NOTE: The POST Method has been protected with IAM policy. You need to manually add a user to the `urlshortneradmins` group if they wish to make POST request to the API endpoint.
 
 
 <br/><br/><br/><br/><br/>
