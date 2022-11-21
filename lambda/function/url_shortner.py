@@ -55,7 +55,7 @@ def shorten(link):
     
     else:
         return (
-            json.dumps({"message": f"{link} already exists! Shortened: /{scan['Items'][0]['shortened']}"}),
+            json.dumps({"message": f"{link} already exists in the database! Shortened: /{scan['Items'][0]['shortened']}"}),
             400,
             {"Content-Type": "application/json"}
         )
