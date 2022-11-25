@@ -1,5 +1,5 @@
 # Deployed Application:
-LINK: <Link>
+LINK: https://0p7lrukng9.execute-api.us-east-1.amazonaws.com/prod
 
 # Application Purpose
 This is a URL shortening service that provides the ability to shorten web addresses to a 5-10 characters string. Once a link has been shortened you can call `GET: <API-URL>/<random-generated-string>` to be redirected to the full web address that the string belongs to.
